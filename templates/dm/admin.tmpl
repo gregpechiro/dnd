@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {{ template "head.tmpl" . }}
+        <link rel="stylesheet" href="static/css/datatables-custom.css">
+        <title>Home</title>
+    </head>
+    <body>
+
+        {{ template "adminNav.tmpl" . }}
+
+        <div class="container">
+
+            <div class="col-lg-12">
+                <div class="row">
+                    {{ template "alerts.tmpl" . }}
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            Charaters
+                            <a class="btn btn-default btn-xs pull-right" href="/admin/character/edit/new">Add</a>
+                        </div>
+                        <div class="panel-body">
+                            <table id="characters" class="table table-bordered no-margin">
+                                <thead>
+                                    <tr id="search">
+                                        <th>firstName</th>
+                                        <th>lastName</th>
+                                        <th>race</th>
+                                        <th>class</th>
+                                        <th>npc</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Race</th>
+                                        <th>Class</th>
+                                        <th>NPC</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{ range $character := .characters }}
+                                        <tr>
+                                            <td>{{ $character.FirstName }}</td>
+                                            <td>{{ $character.LastName }}</td>
+                                            <td>{{ $character.Race }}</td>
+                                            <td>{{ $character.Class }}</td>
+                                            <td>{{ $character.NPC }}</td>
+                                            <td>
+                                                <div class="pull-right">
+                                                    <a href="" class="btn btn-primary btn-xs">View</a>
+                                                    <a href="/admin/character/edit/{{ $character.Id }}" class="btn btn-danger btn-xs">Edit</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {{ end }}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            Location
+                            <a class="btn btn-default btn-xs pull-right" href="/admin/location/edit/new">Add</a>
+                        </div>
+                        <div class="panel-body">
+                            <table id="locations" class="table table-bordered no-margin">
+                                <thead>
+                                    <tr id="search">
+                                        <th>name</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{ range $location := .locations }}
+                                        <tr>
+                                            <td>{{ $location.Name }}</td>
+                                            <td>
+                                                <div class="pull-right">
+                                                    <a href="" class="btn btn-primary btn-xs">View</a>
+                                                    <a href="/admin/location/edit/{{ $location.Id }}" class="btn btn-danger btn-xs">Edit</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {{ end }}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        {{ template "scripts.tmpl" . }}
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/datatables/1.10.7/js/jquery.dataTables.min.js"></script>
+		<script src="/static/js/datatables-bootstrap.js"></script>
+        <script src="/static/js/datatables-custom.js"></script>
+
+        <script type="text/javascript">
+            var table = $('#characters').DataTable({
+                "lengthMenu":[10,15,20],
+                "pageLength": 10,
+                "columnDefs": [
+                    { "orderable": false, "targets": [4] },
+                    { "name": "firstName",     "targets": 0 },
+                    { "name": "lastName",  "targets": 1 },
+                    { "name": "race",    "targets": 2 },
+                    { "name": "class",    "targets": 3 },
+                    { "name": "npc",      "targets": 4 }
+                ]
+            });
+
+            var table2 = $('#locations').DataTable({
+                "lengthMenu":[10,15,20],
+                "pageLength": 10,
+                "columnDefs": [
+                    { "name": "name",     "targets": 0 }
+                ]
+            });
+        </script>
+
+    </body>
+</html>

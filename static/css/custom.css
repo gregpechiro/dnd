@@ -1,0 +1,11 @@
+textarea {
+    resize: none;
+}
+
+table.table-bordered.dataTable {
+    border-collapse: collapse !important;
+}
+
+.no-margin {
+    margin:0;
+}

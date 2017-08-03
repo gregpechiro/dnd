@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {{ template "head.tmpl" . }}
+        <title>Home</title>
+    </head>
+    <body>
+
+        {{ template "adminNav.tmpl" . }}
+
+        <div class="container">
+
+            <div class="col-lg-12">
+                <div class="row">
+                    {{ template "alerts.tmpl"}}
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-offset-4 col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            Character
+                            <a class="btn btn-default btn-xs pull-right" href="/admin">Cancel</a>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" action="/admin/character/save" method="post">
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">First Name</label>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" type="text" name="firstName" value="{{ .character.FirstName }}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Last Name</label>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" type="text" name="lastName" value="{{ .character.LastName }}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Race</label>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" type="text" name="race" value="{{ .character.Race }}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Class</label>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" type="text" name="class" value="{{ .character.Class }}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">NPC</label>
+                                    <div class="col-lg-9">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="nPC" id="npcTrue" value="true" {{ if .character.NPC }}checked{{ end }}> Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="nPC" id="npcFalse" value="false" {{ if not .character.NPC }}checked{{ end }}> No
+                                        </label>
+                                    </div>
+                                </div>
+                                {{ if .locations }}
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <label>Located In</label>
+                                            <select class="form-control" name="location">
+                                                <option value="">None</option>
+                                                {{ range $location := .locations }}
+                                                    <option value="{{ $location.Id }}">{{ $location.Name }}</option>
+                                                {{ end }}
+                                            </select>
+                                        </div>
+                                    </div>
+                                {{ end }}
+                                {{ if .character }}
+                                    <input type="hidden" name="id" value="{{ .character.Id }}">
+                                {{ end }}
+                                <button class="btn btn-primary btn-block">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {{ template "scripts.tmpl" . }}
+    </body>
+</html>

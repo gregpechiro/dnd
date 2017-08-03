@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {{ template "head.tmpl" . }}
+        <title>Home</title>
+    </head>
+    <body>
+
+        {{ template "adminNav.tmpl" . }}
+
+        <div class="container">
+
+            <div class="col-lg-12">
+                <div class="row">
+                    {{ template "alerts.tmpl"}}
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-offset-4 col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading clearfix">
+                            Quest
+                            <a class="btn btn-default btn-xs pull-right" href="/admin">Cancel</a>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-horizontal" action="/admin/quest/save" method="post">
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Name</label>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" type="text" name="name" value="{{ .quest.Name }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label>Description</label>
+                                        <textarea class="form-control" name="description" rows="4">{{ .quest.Description }}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Journal Entry</label>
+                                        <textarea class="form-control" name="entry" rows="4">{{ .quest.Entry }}</textarea>
+                                    </div>
+                                </div>
+                                {{ if .quest }}
+                                    <input type="hidden" name="id" value="{{ .quest.Id }}">
+                                {{ end }}
+                                <button class="btn btn-primary btn-block">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {{ template "scripts.tmpl" . }}
+    </body>
+</html>
